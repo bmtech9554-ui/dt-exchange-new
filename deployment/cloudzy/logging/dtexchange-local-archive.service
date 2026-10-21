@@ -1,0 +1,18 @@
+[Unit]
+Description=DT Exchange bounded encrypted local log capture
+After=docker.service rsyslog.service
+OnFailure=dtexchange-local-monitor.service
+[Service]
+Type=oneshot
+UMask=0077
+ExecStart=/usr/bin/flock -w 30 /run/lock/dtexchange-local-archives.lock /usr/bin/python3 /opt/dtexchange-local-logging/local_agent.py /etc/dtexchange-logging/config.json
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/srv/dtexchange/log-archives /srv/dtexchange/logging-state /run/lock
+PrivateTmp=true
+Nice=15
+IOSchedulingClass=idle
+MemoryMax=512M
+CPUQuota=40%
+TimeoutStartSec=180

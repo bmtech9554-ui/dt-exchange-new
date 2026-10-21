@@ -1,0 +1,88 @@
+# Local-reviewed foundation. No financial workers exist in this topology.
+# Use from /srv/dtexchange/current with --env-file /srv/dtexchange/config/compose.env.
+name: dtexchange
+x-hardening: &hardening
+  restart: unless-stopped
+  security_opt: [no-new-privileges:true]
+  logging: {driver: json-file, options: {max-size: 10m, max-file: '5'}}
+services:
+  web:
+    <<: *hardening
+    build: {context: ../.., dockerfile: docker/admin.Dockerfile}
+    image: dtexchange-web:local-reviewed
+    user: node
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    ports: ['127.0.0.1:3000:3000']
+    environment:
+      DT_BACKEND_URL: https://api.dtexchange.app/api/v1
+      DT_ADMIN_ORIGIN: https://admin.dtexchange.app
+      APK_ALLOWED_ORIGINS: https://dtexchange.app
+    networks: [edge]
+  postgres:
+    <<: *hardening
+    profiles: [infrastructure]
+    image: postgres:16-alpine@sha256:721873c34ceb9f8d8fc265984940dc982404c105f19ad51be9fdc5970a6080ea
+    environment:
+      POSTGRES_USER: dt_owner
+      POSTGRES_DB: dt_exchange
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+    command: [postgres, -c, ssl=on, -c, ssl_cert_file=/run/tls/postgres.crt, -c, ssl_key_file=/run/tls/postgres.key, -c, ssl_ca_file=/run/tls/ca.crt]
+    volumes: [postgres_data:/var/lib/postgresql/data, '${DT_RUNTIME_DIRECTORY:-/srv/dtexchange/config}/tls:/run/tls:ro']
+    secrets: [postgres_password]
+    networks: [data]
+    healthcheck: {test: [CMD-SHELL, 'pg_isready -U dt_owner -d dt_exchange'], interval: 10s, timeout: 5s, retries: 6}
+  redis:
+    <<: *hardening
+    profiles: [infrastructure]
+    image: redis:7-alpine@sha256:858f009f9709ce576febc734aa78b8f6d624b82571f9ddb6bda4377c833b3499
+    user: redis
+    command: [redis-server, /usr/local/etc/redis/redis.conf]
+    volumes: [redis_data:/data, './redis.conf:/usr/local/etc/redis/redis.conf:ro', '${DT_RUNTIME_DIRECTORY:-/srv/dtexchange/config}/redis.acl:/run/secrets/redis.acl:ro', '${DT_RUNTIME_DIRECTORY:-/srv/dtexchange/config}/tls:/run/tls:ro']
+    networks: [data]
+    healthcheck:
+      test: [CMD-SHELL, 'REDISCLI_AUTH=$$(cat /run/secrets/redis_password) redis-cli --tls --cacert /run/tls/ca.crt -h redis --user dt_app ping | grep -q PONG']
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    secrets: [redis_password]
+  api:
+    <<: *hardening
+    profiles: [application]
+    build: {context: ../.., dockerfile: docker/backend.Dockerfile}
+    image: dtexchange-api:local-reviewed
+    command: [api]
+    user: node
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    ports: ['127.0.0.1:4000:4000']
+    env_file: ['${DT_RUNTIME_DIRECTORY:-/srv/dtexchange/config}/runtime.env']
+    volumes: ['${DT_RUNTIME_DIRECTORY:-/srv/dtexchange/config}/tls/ca.crt:/run/tls/ca.crt:ro', '${DT_RUNTIME_DIRECTORY:-/srv/dtexchange/config}/app-secrets:/run/app-secrets:ro', '/srv/dtexchange/status:/run/owner-status:ro']
+    environment: {NODE_EXTRA_CA_CERTS: /run/tls/ca.crt, OWNER_HEALTH_REPORT_FILE: /run/owner-status/owner-health.json}
+    networks: [data, edge]
+  engagement:
+    <<: *hardening
+    profiles: [application]
+    image: dtexchange-api:local-reviewed
+    command: [engagement]
+    user: node
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    env_file: ['${DT_RUNTIME_DIRECTORY:-/srv/dtexchange/config}/runtime.env']
+    volumes: ['${DT_RUNTIME_DIRECTORY:-/srv/dtexchange/config}/tls/ca.crt:/run/tls/ca.crt:ro', '${DT_RUNTIME_DIRECTORY:-/srv/dtexchange/config}/app-secrets:/run/app-secrets:ro']
+    environment: {NODE_EXTRA_CA_CERTS: /run/tls/ca.crt, SERVICE_NAME: dt-engagement}
+    healthcheck: {disable: true}
+    networks: [data, edge]
+secrets:
+  postgres_password: {file: '${DT_RUNTIME_DIRECTORY:-/srv/dtexchange/config}/postgres_password'}
+  redis_password: {file: '${DT_RUNTIME_DIRECTORY:-/srv/dtexchange/config}/redis_password'}
+volumes:
+  postgres_data:
+  redis_data:
+networks:
+  data: {internal: true}
+  edge: {}

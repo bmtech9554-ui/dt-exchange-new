@@ -1,0 +1,7 @@
+# Android release metadata attestation recovery
+
+The metadata Ed25519 identity is separate from the existing Android APK signing identity. Its private key is outside the project in the current Windows account’s protected release-attestation directory, with inheritance removed and access restricted to that account and SYSTEM. Only the public verification key is configured on the API. Never copy the private key to the VPS, Git, logs, public storage, or chat.
+
+Future releases must retain the existing Android production signing identity. Metadata attestation signs the exact ordered releasePayload fields accepted by AndroidService. Verify the APK package/version, non-debuggable flag, signing certificate and SHA-256 before signing metadata. Only ANDROID_RELEASE_PUBLISH permits release publication/history. The android-release-publisher role grants only that permission; it grants no financial or general administration capability.
+
+Recovery plan: arrange an owner-approved encrypted offline backup of the metadata private key, separate from its decryption password and separate from server/database recovery material. No off-device key backup was transferred during publication. Record and verify the public key fingerprint when restoring. If metadata-key recovery fails, a separately approved API public-key rotation is possible; it does not replace the Android APK signing identity. Recovery of the Android keystore remains mandatory for compatible application updates.

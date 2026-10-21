@@ -1,0 +1,8 @@
+[Unit]
+Description=DT Exchange private health snapshot
+After=docker.service
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /srv/dtexchange/current/deployment/cloudzy/check-health.sh
+StandardOutput=journal
+StandardError=journal

@@ -1,0 +1,18 @@
+[Unit]
+Description=DT Exchange local archive integrity and recovery check
+After=dtexchange-local-archive.service
+OnFailure=dtexchange-local-monitor.service
+[Service]
+Type=oneshot
+UMask=0077
+ExecStart=/usr/bin/flock -w 30 /run/lock/dtexchange-local-archives.lock /usr/bin/python3 /opt/dtexchange-local-logging/local_integrity.py /etc/dtexchange-logging/config.json
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/srv/dtexchange/logging-state /run/lock
+PrivateTmp=true
+Nice=19
+IOSchedulingClass=idle
+MemoryMax=512M
+CPUQuota=25%
+TimeoutStartSec=1800

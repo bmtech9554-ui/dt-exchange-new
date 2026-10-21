@@ -1,0 +1,34 @@
+/* Generated from docs/design-tokens.json. Do not hand-edit. */
+:root {
+  color-scheme: light;
+  --white: #FFFFFF;
+  --background: #F7F9FC;
+  --navy: #081B3A;
+  --mint: #20DDA5;
+  --emerald: #06BC83;
+  --teal: #18C7BA;
+  --aqua: #41D9E7;
+  --blue: #3D6FF5;
+  --soft-blue: #EDF4FF;
+  --soft-mint: #EAFEF6;
+  --cta-start: #28E3AE;
+  --cta-end: #06B980;
+  --muted: #52647C;
+  --border: #E3EBF3;
+  --red: #B42335;
+  --soft-red: #FFF4F5;
+  --dark-background: #07152B;
+  --dark-surface: #10243D;
+  --dark-text: #E8F6F3;
+  --dark-muted: #B0C5D4;
+  --dark-border: #29435A;
+  --dark-mint: #123E37;
+  --dark-blue: #152E51;
+  --dark-red: #422634;
+  --radius-card: 24px;
+  --radius-compact: 20px;
+  --radius-control: 16px;
+  --motion-press: 120ms;
+  --motion-standard: 240ms;
+  --motion-reveal: 360ms;
+}

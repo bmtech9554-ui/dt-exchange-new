@@ -1,0 +1,26 @@
+{
+  "name": "dt-exchange",
+  "version": "1.0.0-rc.1",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "admin"
+  ],
+  "engines": {
+    "node": ">=24.15 <25"
+  },
+  "scripts": {
+    "dev:api": "npm run dev --workspace @dt/backend",
+    "dev:admin": "npm run dev --workspace @dt/admin",
+    "build": "npm run build --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "test": "npm run test --workspace @dt/backend",
+    "tokens": "node scripts/generate-tokens.mjs",
+    "tokens:check": "node scripts/generate-tokens.mjs --check",
+    "db:migrate": "node --env-file-if-exists=.env backend/scripts/migrate.mjs",
+    "db:seed": "node --env-file-if-exists=.env backend/scripts/seed.mjs"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2"
+  }
+}

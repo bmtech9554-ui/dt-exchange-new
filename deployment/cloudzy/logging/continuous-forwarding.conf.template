@@ -1,0 +1,47 @@
+# STAGED: never copy this template into /etc/rsyslog.d unchanged.
+# Requires an approved India collector, mutual TLS certificates, the rsyslog
+# gtls module and a private encrypted durable queue filesystem. Validate with
+# rsyslogd -N1 on an isolated matching Linux host before live approval.
+# Merge module/global settings with existing definitions; do not duplicate them.
+global(
+  workDirectory="/var/lib/dtexchange-log-forwarder"
+  DefaultNetstreamDriverCAFile="/etc/dtexchange-log-archive/tls/ca.crt"
+  DefaultNetstreamDriverCertFile="/etc/dtexchange-log-archive/tls/client.crt"
+  DefaultNetstreamDriverKeyFile="/etc/dtexchange-log-archive/tls/client.key"
+)
+module(load="imfile")
+
+ruleset(name="dt_india_stream") {
+  action(
+    type="omfwd"
+    target="REPLACE_APPROVED_INDIA_COLLECTOR"
+    port="6514"
+    protocol="tcp"
+    TCP_Framing="octet-counted"
+    StreamDriver="gtls"
+    StreamDriverMode="1"
+    StreamDriverAuthMode="x509/name"
+    StreamDriverPermittedPeers="REPLACE_APPROVED_INDIA_COLLECTOR"
+    template="RSYSLOG_SyslogProtocol23Format"
+    action.resumeRetryCount="-1"
+    queue.type="Disk"
+    queue.filename="dt_india_stream"
+    queue.maxDiskSpace="4g"
+    queue.checkpointInterval="1"
+    queue.syncQueueFiles="on"
+    queue.saveOnShutdown="on"
+  )
+}
+
+# Local existing syslog/SSH/fail2ban events still reach existing local rules.
+# This is an additional destination; never add a stop statement here.
+call dt_india_stream
+input(type="imfile" File="/var/log/nginx/*.log" Tag="dt-nginx:"
+      Facility="local6" Severity="info" PersistStateInterval="1"
+      addMetadata="on" Ruleset="dt_india_stream")
+input(type="imfile" File="/var/lib/docker/containers/*/*-json.log" Tag="dt-container:"
+      Facility="local6" Severity="info" PersistStateInterval="1"
+      addMetadata="on" Ruleset="dt_india_stream")
+input(type="imfile" File="/srv/dtexchange/logs/*.log" Tag="dt-operations:"
+      Facility="local6" Severity="info" PersistStateInterval="1"
+      addMetadata="on" Ruleset="dt_india_stream")

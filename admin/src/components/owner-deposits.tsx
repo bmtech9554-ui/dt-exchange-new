@@ -1,0 +1,14 @@
+"use client";
+import {useEffect,useState} from 'react';
+import {Card,Button} from './ui';
+import {ownerApi} from './owner-operations';
+import {OwnerDepositDetails} from './owner-deposit-details';
+export function OwnerDeposits(){
+ const [query,setQuery]=useState(''),[page,setPage]=useState(1),[data,setData]=useState<any>(null),[error,setError]=useState(''),[selected,setSelected]=useState('');
+ useEffect(()=>{let active=true;setData(null);ownerApi(`owner/deposits?page=${page}&${query}`).then(d=>{if(active){setData(d);setError('');}},()=>{if(active)setError('Unable to load deposits. Check filters and access.');});return()=>{active=false;};},[query,page]);
+ const columns=[['id','Request'],['public_user_id','User ID'],['user_name','User'],['phone','Phone'],['submitted_amount','Submitted USDT'],['verified_amount','Confirmed USDT'],['deposit_fee_amount','Fee USDT'],['net_credited_amount','Net credit USDT'],['inr_equivalent','INR equivalent'],['rate_snapshot','Submission rate'],['network_code','Network'],['receiver','Receiving address'],['tx_hash','TxID'],['proof_id','Proof'],['created_at','Submitted'],['status','Status'],['reviewer_id','Reviewer'],['reviewed_at','Reviewed']];
+ return <><h1>USDT Deposits</h1><Card><form onSubmit={e=>{e.preventDefault();const f=new FormData(e.currentTarget),q=new URLSearchParams();for(const [k,v] of f)if(String(v).trim())q.set(k,String(v).trim());setPage(1);setQuery(q.toString());}}>
+ <label>Status<select name="status"><option value="">All</option>{['UNDER_REVIEW','APPROVED','REJECTED','PROOF_SUBMITTED','REQUIRES_MORE_INFORMATION','CANCELLED'].map(v=><option key={v}>{v}</option>)}</select></label>
+ <label>Internal user ID<input name="user"/></label><label>TxID prefix<input name="txid" maxLength={64}/></label><label>From (India time)<input name="from" type="date"/></label><label>Through (India time)<input name="to" type="date"/></label><label>Minimum USDT<input name="minimum" inputMode="decimal"/></label><label>Maximum USDT<input name="maximum" inputMode="decimal"/></label><Button>Apply filters</Button></form></Card>
+ {error&&<p role="alert">{error}</p>}{data&&<Card><p>{data.total} matching deposits. Historical rates are shown only when recorded.</p><div style={{overflowX:'auto'}}><table><thead><tr>{columns.map(([k,v])=><th key={k}>{v}</th>)}<th>Details</th></tr></thead><tbody>{data.rows.map((r:any)=><tr key={r.id}>{columns.map(([k])=><td key={k} style={{maxWidth:260,overflowWrap:'anywhere'}}>{k==='rate_snapshot'?(r.rate_snapshot?.rateInr??'Not recorded'):k==='proof_id'?(r.proof_id?'Attached':'Not attached'):String(r[k]??'Not recorded')}</td>)}<td><Button onClick={()=>setSelected(r.id)}>Inspect</Button></td></tr>)}</tbody></table></div><Button disabled={page<=1} onClick={()=>setPage(p=>p-1)}>Previous</Button><span> Page {page} </span><Button disabled={page*50>=data.total} onClick={()=>setPage(p=>p+1)}>Next</Button></Card>}{selected&&<OwnerDepositDetails key={selected} id={selected}/>}</>;
+}

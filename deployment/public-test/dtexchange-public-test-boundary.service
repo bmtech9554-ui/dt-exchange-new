@@ -1,0 +1,13 @@
+[Unit]
+Description=DT Exchange isolated public test network boundary
+After=docker.service
+Requires=docker.service
+PartOf=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/srv/dtexchange-public-test/network-boundary.sh
+
+[Install]
+WantedBy=docker.service

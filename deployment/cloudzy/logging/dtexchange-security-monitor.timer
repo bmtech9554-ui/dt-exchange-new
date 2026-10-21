@@ -1,0 +1,7 @@
+[Unit]
+Description=DT Exchange security/archive monitor schedule (approval required)
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=60s
+[Install]
+WantedBy=timers.target

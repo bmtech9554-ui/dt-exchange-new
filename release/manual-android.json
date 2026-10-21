@@ -1,0 +1,18 @@
+{
+  "product": "DT Exchange",
+  "operatingModel": "MANUAL_ANDROID",
+  "releaseVersion": "1.0.0-manual.1",
+  "mobileVersionName": "1.0.0",
+  "mobileVersionCode": 8002,
+  "migration": "008_manual_android.sql",
+  "certification": "BLOCKED_FOR_PRODUCTION",
+  "financialFeaturesEnabled": false,
+  "distribution": "OFFICIAL_HTTPS_WEBSITE_SIGNED_APK",
+  "apk": null,
+  "automation": "AUTOMATION_FUTURE",
+  "playStore": "FUTURE_REQUIREMENT",
+  "appStore": "FUTURE_REQUIREMENT",
+  "ios": "FUTURE_REQUIREMENT",
+  "areas": {},
+  "findings": []
+}

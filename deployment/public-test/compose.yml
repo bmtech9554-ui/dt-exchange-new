@@ -1,0 +1,68 @@
+name: dtexchange-public-test
+services:
+  test-db:
+    image: sha256:721873c34ceb9f8d8fc265984940dc982404c105f19ad51be9fdc5970a6080ea
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: dtexchange_public_test
+      POSTGRES_USER: dt_test
+      POSTGRES_PASSWORD_FILE: /run/secrets/test-db-password
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+      - ./secrets/database-password:/run/secrets/test-db-password:ro
+    networks: {isolated: {ipv4_address: 172.31.118.2}}
+    mem_limit: 512m
+    cpus: 0.5
+    pids_limit: 100
+    command: ["postgres", "-c", "shared_buffers=32MB", "-c", "max_connections=20", "-c", "work_mem=2MB", "-c", "log_statement=none"]
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U dt_test -d dtexchange_public_test"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    logging: {driver: json-file, options: {max-size: "10m", max-file: "3"}}
+  test-api:
+    image: dtexchange-public-test-api:8019
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 100
+    mem_limit: 512m
+    cpus: 0.75
+    tmpfs: ["/tmp:size=32m,mode=1777"]
+    volumes: [./secrets/runtime.json:/test-secrets/runtime.json:ro]
+    networks: {isolated: {ipv4_address: 172.31.118.4}}
+    depends_on:
+      test-db: {condition: service_healthy}
+    healthcheck:
+      test: ["CMD","node","-e","fetch('http://127.0.0.1:4118/api/v1/test/status').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging: {driver: json-file, options: {max-size: "10m", max-file: "3"}}
+  test-web:
+    image: dtexchange-public-test-web:8019
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 100
+    mem_limit: 512m
+    cpus: 0.5
+    tmpfs: ["/tmp:size=32m,mode=1777"]
+    volumes: [./release:/test-release:ro]
+    networks: {isolated: {ipv4_address: 172.31.118.3}}
+    healthcheck:
+      test: ["CMD","node","-e","fetch('http://127.0.0.1:3000/test-admin').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging: {driver: json-file, options: {max-size: "10m", max-file: "3"}}
+networks:
+  isolated:
+    internal: true
+    driver_opts:
+      com.docker.network.bridge.name: dtpubtest0
+    ipam:
+      config: [{subnet: 172.31.118.0/24}]

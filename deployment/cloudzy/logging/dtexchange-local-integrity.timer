@@ -1,0 +1,8 @@
+[Unit]
+Description=DT Exchange daily archive integrity schedule
+[Timer]
+OnCalendar=*-*-* 03:30:00 UTC
+Persistent=true
+RandomizedDelaySec=300
+[Install]
+WantedBy=timers.target

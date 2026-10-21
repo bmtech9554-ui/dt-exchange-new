@@ -1,0 +1,84 @@
+DT EXCHANGE — TERMS & CONDITIONS DRAFT
+UNPUBLISHED — INTERNAL REVIEW ONLY — 8 October 2026
+
+Publication is blocked until the contracting legal operator, address, official
+contact, applicable jurisdiction and product/legal review are confirmed. DT
+Exchange below is a public-facing brand only. This draft creates no acceptance
+record and makes no claim of incorporation, registration, licensing, regulatory
+approval, insurance or a government guarantee.
+
+Service and eligibility
+DT Exchange at https://dtexchange.app provides an account interface for reviewed
+USDT deposit requests and manual USDT-to-INR sell/payout workflows when enabled.
+Availability depends on account eligibility, operational controls and the rules
+shown before submission. A referral balance is distinct from spendable funds.
+Final age, territorial and other eligibility terms must be confirmed by the legal
+operator before publication; no unimplemented eligibility control is claimed here.
+
+Account security
+Provide accurate account information and keep credentials secure. Use only an
+account you are authorized to operate. OTP confirms control of a communication
+channel; it is not a representation that identity or bank ownership has been
+independently verified. Biometric unlock uses the device operating system and
+does not replace server-side session validation. Report suspected unauthorized
+access promptly. Do not share passwords, OTPs, authenticator secrets or seeds.
+
+Manual deposits
+Use only the network and public receiving address displayed for the current
+deposit workflow. Submission of an amount, TxID or screenshot is a request for
+review, not proof of blockchain confirmation and not an automatic wallet credit.
+Duplicate transaction hashes are rejected. Review may require additional evidence
+or result in rejection with a recorded reason. Sending another asset or using an
+incorrect network/address can cause irreversible loss. A public address, QR or
+status message does not authorize transfers while the service is unavailable.
+
+Rates, limits and quotes
+Rates, fees, minimums, limits and quote expiry are supplied by the backend and
+shown in the relevant workflow. The current production rate is manually set;
+it is not described as an external live market feed. An accepted quote retains
+its recorded terms. An expired quote cannot be accepted and must be refreshed.
+Changes apply prospectively as defined by the policy; they do not silently rewrite
+accepted transactions. The operator must approve how material policy changes are
+communicated before publication of these terms.
+
+Bank accounts, sales and payouts
+Users are responsible for supplying accurate beneficiary details. A self-declared
+account labeled Available has passed input checks and is selectable for permitted
+manual workflows; that label does not mean independent bank verification. Already
+accepted beneficiary terms are preserved. Requests are processed manually when
+enabled. Processing time estimates are not unconditional guarantees of bank
+settlement. UTR and protected payment proof, when recorded, appear in transaction
+history. Automated blockchain credit and automated INR payout are disabled.
+
+Referral program
+An eligible referred registration plus successful OTP verification may accrue the
+reward amount in effect for that attribution. Self-referrals, duplicate attribution,
+synthetic accounts and suspicious/shared-device activity are blocked or reviewed.
+Accrued USDT rewards are held separately and require authorized manual release;
+they are not automatically spendable or payable. Changing the reward policy does
+not rewrite past reward snapshots. Do not promise rewards outside the published
+policy or send unsolicited invitations. Earlier reward programs retain their own
+recorded history and terms.
+
+Review, restrictions and records
+We process only reviewed transactions that meet our compliance requirements.
+Requests may be held or rejected under applicable law, fraud controls and the
+recorded workflow. No statement in the app guarantees the lawfulness or source
+of every asset, investment returns, or protection against all losses. Support can
+investigate disputes using retained request, quote, ledger and audit records.
+Restrictions and account closure do not erase valid rights, pending obligations
+or immutable financial history. Corrections require an authorized recorded process.
+
+Support and external services
+Temporary review contact: dtexchangeservice@gmail.com. Official Telegram channel:
+@dtexchange. Third-party communications, networks and banks have their own terms
+and availability. Maintenance can temporarily block operations. Status messages
+must accurately distinguish submitted, under-review, approved, rejected and paid.
+
+Rights and final review
+No clause is intended to exclude rights or liabilities that cannot lawfully be
+excluded. Do not add a blanket no-refund term, absolute liability waiver,
+unconfirmed arbitration provision or fabricated regulatory claim. The operator
+must finalize dispute handling, applicable law, legal contact, eligibility,
+retention obligations and any required disclosures before approving publication.
+These terms and the Privacy Policy remain unpublished pending that approval.

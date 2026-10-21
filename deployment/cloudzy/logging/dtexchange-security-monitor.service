@@ -1,0 +1,13 @@
+[Unit]
+Description=DT Exchange security/archive health monitor
+After=docker.service network-online.target
+[Service]
+Type=oneshot
+UMask=0077
+ExecStart=/usr/bin/python3 /opt/dtexchange-logging/monitor.py /etc/dtexchange-log-archive/config.json
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/dtexchange-log-archive
+PrivateTmp=true
+TimeoutStartSec=90

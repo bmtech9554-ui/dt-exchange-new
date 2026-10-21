@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "brand": {
+    "name": "DT Exchange",
+    "tagline": "Sell USDT. Receive INR."
+  },
+  "colors": {
+    "white": "#FFFFFF",
+    "background": "#F7F9FC",
+    "navy": "#081B3A",
+    "mint": "#20DDA5",
+    "emerald": "#06BC83",
+    "teal": "#18C7BA",
+    "aqua": "#41D9E7",
+    "blue": "#3D6FF5",
+    "softBlue": "#EDF4FF",
+    "softMint": "#EAFEF6",
+    "ctaStart": "#28E3AE",
+    "ctaEnd": "#06B980",
+    "muted": "#52647C",
+    "border": "#E3EBF3",
+    "red": "#B42335",
+    "softRed": "#FFF4F5",
+    "darkBackground": "#07152B",
+    "darkSurface": "#10243D",
+    "darkText": "#E8F6F3",
+    "darkMuted": "#B0C5D4",
+    "darkBorder": "#29435A",
+    "darkMint": "#123E37",
+    "darkBlue": "#152E51",
+    "darkRed": "#422634"
+  },
+  "radius": {
+    "card": 24,
+    "compact": 20,
+    "control": 16
+  },
+  "spacing": [
+    4,
+    8,
+    12,
+    16,
+    20,
+    24,
+    32,
+    40,
+    48,
+    64
+  ],
+  "motion": {
+    "press": 120,
+    "standard": 240,
+    "reveal": 360
+  },
+  "typography": {
+    "family": "Inter",
+    "fallback": "system-ui",
+    "display": 40,
+    "heading": 28,
+    "title": 20,
+    "body": 16,
+    "caption": 13
+  }
+}

@@ -1,0 +1,78 @@
+DT EXCHANGE — PRIVACY POLICY DRAFT
+UNPUBLISHED — INTERNAL REVIEW ONLY — 8 October 2026
+
+Publication is blocked until the legal operator's full name, address, applicable
+privacy/grievance contact and official contact email are confirmed. DT Exchange
+is used below only as a brand, not as a registered legal entity. No effective date
+or user acceptance is implied by this draft.
+
+Scope and contact
+This draft describes the DT Exchange website at https://dtexchange.app and its
+Android app. The temporary contact supplied for review is
+dtexchangeservice@gmail.com. Telegram support is @dtexchange. Do not send an OTP,
+password, authenticator secret, wallet seed phrase or private key to support.
+
+Information used
+Account information includes the name, mobile number, email, numeric public user
+ID and authentication records needed to create and secure an account. Passwords
+are stored as hashes. Authentication uses short-lived challenges and sessions.
+Bank information includes the account holder, account number, bank, IFSC and any
+branch or account type supplied. Transaction records include submitted amounts,
+quote/rate snapshots, public receiving addresses, transaction hashes, deposit
+proofs, manual review outcomes, payout references and receipts. Support includes
+ticket messages and attachments where supported. Referrals include the referral
+code, attribution, eligibility status and reward/release history.
+
+Security and operational records include session/device identifiers, request
+metadata, security events, administrator actions and notification preferences.
+The app stores session credentials in platform secure storage. Optional biometric
+unlock is performed by the operating system; DT Exchange does not receive or
+store fingerprint images, face images or biometric templates. Theme preferences
+are stored on the device. Session cookies used by the admin panel are secure and
+HttpOnly. These descriptions do not promise that any system is risk-free.
+
+Purposes
+Information is used to administer accounts, authenticate access, provide the
+requested manual transaction workflow, prevent duplicate or fraudulent requests,
+support users, maintain accurate financial records and investigate incidents.
+Referral information is used to attribute eligible registrations and hold rewards
+separately pending manual release. Optional notification preferences can be
+changed in the app; essential security and transaction messages may remain needed.
+
+Access and sharing
+Authorized staff access information only within their permitted duties. Private
+proofs require authenticated user or authorized administrator access. Hosting,
+SMS/OTP and other enabled service providers process information necessary for
+their service. Bank/payment recipients may receive details necessary to process
+an explicitly reviewed payout. Relevant records may be disclosed where required
+by applicable law or valid legal process. Public blockchain addresses and
+transaction hashes may already be publicly observable independently of DT
+Exchange. Opening Telegram, email or a sharing app is subject to that service's
+own privacy practices. A referral link includes an invite code; reward history
+may identify a referred account by its numeric public ID, not its password or OTP.
+
+Choices and requests
+Users can update supported profile fields, notification preferences and device
+settings, and request account closure through the app. Contact support to request
+access, correction, deletion, withdrawal of consent where applicable, or to raise
+a privacy concern. Identity may need to be checked before acting on a request.
+Information essential to provide a requested service cannot simply be omitted
+while continuing that service. Closure deactivates access; it does not silently
+erase settled transactions, audit records, outstanding obligations or records
+that must be retained by law. Applicable rights and statutory remedies remain.
+
+Retention, security and location
+The implementation uses access controls, encryption for sensitive fields and
+private files, encrypted backups, authentication controls and audit trails.
+Publication must include an approved retention schedule and confirmed processing
+locations/provider arrangements; these have not been invented in this draft.
+Retain data only as needed for disclosed purposes, legal obligations and disputes,
+then apply the approved deletion/anonymization process. No indefinite blanket
+retention claim is intended. Security incidents must be assessed and handled in
+accordance with applicable notification and response obligations.
+
+Changes
+Publish a dated version only after approval and explain material changes before
+they take effect where required. This unpublished draft must not be presented as
+an effective policy, proof of regulatory compliance or a substitute for a named
+operator's reviewed notice.

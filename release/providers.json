@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "environment": "development",
+  "productionReady": false,
+  "providers": [
+    {
+      "name": "TRON / Blockchain",
+      "status": "MOCK",
+      "evidence": null,
+      "blocker": "Read-only tron-http adapter exists; no endpoint acceptance evidence"
+    },
+    {
+      "name": "Payout",
+      "status": "MOCK",
+      "evidence": null,
+      "blocker": "Only durable sandbox adapter registered"
+    },
+    {
+      "name": "Identity / KYC",
+      "status": "MOCK",
+      "evidence": null,
+      "blocker": "Vendor adapter not registered"
+    },
+    {
+      "name": "Bank Verification",
+      "status": "MOCK",
+      "evidence": null,
+      "blocker": "Mock verification adapter only"
+    },
+    {
+      "name": "SMS",
+      "status": "MOCK",
+      "evidence": null,
+      "blocker": "No live delivery adapter"
+    },
+    {
+      "name": "Email",
+      "status": "MOCK",
+      "evidence": null,
+      "blocker": "No live delivery adapter"
+    },
+    {
+      "name": "Push Notifications",
+      "status": "MOCK",
+      "evidence": null,
+      "blocker": "FCM/APNs not connected"
+    },
+    {
+      "name": "Object Storage",
+      "status": "MOCK",
+      "evidence": null,
+      "blocker": "Private storage port; no live object store"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+[Unit]
+Description=DT Exchange encrypted private log archive
+After=docker.service network-online.target
+OnFailure=dtexchange-security-monitor.service
+[Service]
+Type=oneshot
+UMask=0077
+ExecStart=/usr/bin/python3 /opt/dtexchange-logging/collect.py /etc/dtexchange-log-archive/config.json
+Environment=AWS_SHARED_CREDENTIALS_FILE=/etc/dtexchange-log-archive/aws-credentials
+Environment=AWS_CONFIG_FILE=/etc/dtexchange-log-archive/aws-config
+Environment=AWS_EC2_METADATA_DISABLED=true
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/dtexchange-log-archive
+PrivateTmp=true
+TimeoutStartSec=600
+MemoryMax=1200M
+CPUQuota=50%

@@ -1,0 +1,12 @@
+{
+  "enabled": false,
+  "retentionDays": 180,
+  "archiveDirectory": "/srv/dtexchange/log-archives",
+  "stateDirectory": "/srv/dtexchange/logging-state",
+  "recipientFile": "/etc/dtexchange-logging/recipient.txt",
+  "identityFile": "/etc/dtexchange-logging/recovery.agekey",
+  "minimumFreeBytes": 42949672960,
+  "archiveBudgetBytes": 21474836480,
+  "adminInboxEnabled": false,
+  "ownerHealthFile": "/srv/dtexchange/status/logging-health.json"
+}

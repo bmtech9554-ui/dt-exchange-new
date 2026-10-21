@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 112" fill="none" role="img" aria-labelledby="title">
+<title id="title">DT Exchange approved DT monogram</title>
+<defs>
+<linearGradient id="d" x1="37" y1="14" x2="67" y2="84" gradientUnits="userSpaceOnUse"><stop stop-color="#20DDA5"/><stop offset=".52" stop-color="#18C7BA"/><stop offset="1" stop-color="#087E8B"/></linearGradient>
+<linearGradient id="t" x1="99" y1="34" x2="75" y2="101" gradientUnits="userSpaceOnUse"><stop stop-color="#3D6FF5"/><stop offset="1" stop-color="#1254D9"/></linearGradient>
+</defs>
+<path fill="url(#t)" d="M77 35h45l-5 18H94L80 101H61l14-48H65l5-18h7Z"/>
+<path fill="url(#d)" d="M24 14h25c23 0 33 12 28 32-5 23-21 36-45 36H4l10-40h20L24 65h9c13 0 22-7 25-19 3-11-2-16-14-16H23l1-16Z"/>
+</svg>

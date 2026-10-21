@@ -1,0 +1,49 @@
+{
+  "version": "1.0.0-rc.1",
+  "financialMode": "MOCK",
+  "areas": {
+    "backend": {
+      "status": "PASS",
+      "artifactSha256": "7fbea450a7c7ac6e39396595665f864c67336eaf65120d88b88cdb317cbde2c8",
+      "checkedAt": "2026-09-21T04:31:55.594823+00:00",
+      "reviewer": "Automated local execution; external signoff pending",
+      "scope": "Local fixture/static/build evidence only"
+    },
+    "flutter": {
+      "status": "PASS",
+      "artifactSha256": "d84cb7dbc25b5af69c5fe5c76ceb894f2095ba07aa51e083521b6e4568ad1ccc",
+      "checkedAt": "2026-09-21T04:31:55.594823+00:00",
+      "reviewer": "Automated local execution; external signoff pending",
+      "scope": "Local fixture/static/build evidence only"
+    },
+    "admin": {
+      "status": "PASS",
+      "artifactSha256": "6a0d545cb0a7402d32d715d0a0049c03065d7ec31fb5cfe34696af4c6e41e5e3",
+      "checkedAt": "2026-09-21T04:31:55.594823+00:00",
+      "reviewer": "Automated local execution; external signoff pending",
+      "scope": "Local fixture/static/build evidence only"
+    },
+    "ledger": {
+      "status": "PASS",
+      "artifactSha256": "7fbea450a7c7ac6e39396595665f864c67336eaf65120d88b88cdb317cbde2c8",
+      "checkedAt": "2026-09-21T04:31:55.594823+00:00",
+      "reviewer": "Automated local execution; external signoff pending",
+      "scope": "Local fixture/static/build evidence only"
+    },
+    "reconciliation": {
+      "status": "PASS",
+      "artifactSha256": "7fbea450a7c7ac6e39396595665f864c67336eaf65120d88b88cdb317cbde2c8",
+      "checkedAt": "2026-09-21T04:31:55.594823+00:00",
+      "reviewer": "Automated local execution; external signoff pending",
+      "scope": "Local fixture/static/build evidence only"
+    }
+  },
+  "findings": [
+    {
+      "severity": "HIGH",
+      "id": "EXTERNAL_ACCEPTANCE",
+      "summary": "Live provider, infrastructure and recovery validation absent"
+    }
+  ],
+  "note": "Populate only from reviewed environment-specific evidence; configuration is not validation."
+}

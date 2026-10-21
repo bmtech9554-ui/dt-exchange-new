@@ -1,0 +1,5 @@
+import {readdir,readFile} from 'node:fs/promises';
+const ignored=new Set(['node_modules','.next','.dart_tool','build','dist','.git','.gradle','Pods','.tooling','ephemeral','.audit']);
+const findings=[];
+async function walk(path){for(const d of await readdir(path,{withFileTypes:true})){if(d.isSymbolicLink())continue;const p=path+'/'+d.name;if(d.isDirectory()){if(!ignored.has(d.name))await walk(p);}else if(/\.(ts|tsx|dart|mjs|sql|json|ya?ml|conf|md|sh|ps1|py)$/.test(p)||d.name==='.env.example'){const s=await readFile(p,'utf8');if(/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/.test(s))findings.push({path:p,issue:'private_key'});if(/AKIA[A-Z0-9]{16}/.test(s))findings.push({path:p,issue:'cloud_access_key'});if(/ghp_[A-Za-z0-9]{36}/.test(s))findings.push({path:p,issue:'github_token'});}}}
+await walk('.');console.log(JSON.stringify({findings,scope:'Source pattern scan; Git history unavailable if no repository exists. Not a substitute for secret-manager inventory.'},null,2));if(findings.length)process.exitCode=1;

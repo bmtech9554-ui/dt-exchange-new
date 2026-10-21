@@ -1,0 +1,23 @@
+{
+  "build": "8018",
+  "purpose": "Additional release-routing restriction; never a financial authorization or compliance attestation.",
+  "allowed": [
+    "OPTIONS:/api/v1/.*",
+    "POST:/api/v1/auth/(register|login|request-otp|verify-otp|refresh|forgot-password|reset-password|contact/request-otp|contact/verify-otp|change-password|logout|logout-all)/?",
+    "(GET|HEAD):/api/v1/(app/configuration|app/version/android|app/terms|users/me|rates/usdt-inr|wallet|history|settings|sessions|bank-accounts|manual/deposits|referrals/me)/?",
+    "(GET|HEAD):/api/v1/settings/legal/(privacy|terms)/?",
+    "(GET|HEAD):/api/v1/(history|bank-accounts|manual/deposits|manual/files|sell/orders)/[0-9a-fA-F-]{36}/?",
+    "POST:/api/v1/bank-accounts/?",
+    "PATCH:/api/v1/bank-accounts/[0-9a-fA-F-]{36}/default/?",
+    "DELETE:/api/v1/(bank-accounts|sessions)/[0-9a-fA-F-]{36}/?",
+    "POST:/api/v1/sessions/logout-others/?",
+    "PATCH:/api/v1/settings/preferences/?",
+    "POST:/api/v1/settings/(pin|pin/verify|delete-account)/?",
+    "(GET|HEAD):/api/v1/notifications(/(preferences|announcements))?/?",
+    "POST:/api/v1/notifications/(read-all|devices)/?",
+    "PATCH:/api/v1/notifications/(preferences|[0-9a-fA-F-]{36}/read)/?",
+    "DELETE:/api/v1/notifications/(devices/)?[0-9a-fA-F-]{36}/?",
+    "(GET|HEAD):/api/v1/support/(faq|tickets|tickets/[0-9a-fA-F-]{36}|attachments/[0-9a-fA-F-]{36})/?",
+    "POST:/api/v1/support/tickets(/[0-9a-fA-F-]{36}/(replies|close|attachments))?/?"
+  ]
+}

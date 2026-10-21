@@ -1,0 +1,10 @@
+# Keep shell scripts portable; preserve binary assets.
+*.sh text eol=lf
+*.bat text eol=crlf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ttf binary
+*.woff2 binary

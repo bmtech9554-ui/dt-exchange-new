@@ -1,0 +1,8 @@
+{
+  "DT_PUBLIC_TEST": "true",
+  "DT_SIMULATION_RELEASE": "true",
+  "DT_PREVIEW": "false",
+  "API_BASE_URL": "https://dtexchange.app/test-api/api/v1",
+  "APP_VERSION_CODE": "8021",
+  "ANDROID_UPDATES_ENABLED": "false"
+}

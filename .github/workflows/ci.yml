@@ -1,0 +1,74 @@
+name: DT Exchange validation
+on: [push, pull_request, workflow_dispatch]
+permissions: {contents: read}
+concurrency:
+  group: dt-validation-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  application:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24.19.0', cache: npm}
+      - run: npm ci --ignore-scripts
+      - run: npm run tokens:check
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run test --workspace @dt/admin
+      - run: npm run build
+      - run: npm audit --audit-level=high
+      - run: node scripts/security-check.mjs
+      - run: python3 scripts/release-secret-scan.py .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: application-build
+          path: |
+            backend/dist
+            admin/.next/standalone
+            backend/migrations
+            docker
+  live-infrastructure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env: {POSTGRES_DB: dt_phase6_test_ci, POSTGRES_USER: dt_test, POSTGRES_PASSWORD: ephemeral-ci-only}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U dt_test -d dt_phase6_test_ci" --health-interval 5s --health-timeout 5s --health-retries 10
+      redis:
+        image: redis:7
+        ports: ['6379:6379']
+        options: --health-cmd "redis-cli ping" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24.19.0', cache: npm}
+      - run: npm ci --ignore-scripts
+      - run: npm run build --workspace @dt/backend
+      - run: node --test backend/test/phase6.test.mjs backend/test/phase7.test.mjs backend/test/phase8-e2e.test.mjs backend/test/manual.test.mjs backend/test/redis-integration.mjs backend/test/phase8-redis-recovery.mjs
+        env:
+          PHASE6_POSTGRES_URL: postgresql://dt_test:ephemeral-ci-only@127.0.0.1:5432/dt_phase6_test_ci
+          PHASE6_REDIS_URL: redis://127.0.0.1:6379/15
+  mobile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.47.5', cache: true}
+      - run: flutter pub get
+        working-directory: mobile
+      - run: flutter analyze
+        working-directory: mobile
+      - run: flutter test
+        working-directory: mobile
+      - run: |
+          build_number="$(awk '/^version:/ {split($2, parts, "+"); print parts[2]}' pubspec.yaml)"
+          flutter build web --release --no-web-resources-cdn --dart-define=APP_VERSION_CODE="$build_number" --dart-define=API_BASE_URL=https://api.example.invalid/api/v1
+        working-directory: mobile
+      - uses: actions/upload-artifact@v4
+        with: {name: mobile-web, path: mobile/build/web}
+# No production deployment job. Sign/release only in a separately approved protected environment.

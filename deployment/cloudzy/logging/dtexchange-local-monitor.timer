@@ -1,0 +1,8 @@
+[Unit]
+Description=DT Exchange local technical alert schedule
+[Timer]
+OnBootSec=2min
+OnUnitInactiveSec=60s
+AccuracySec=5s
+[Install]
+WantedBy=timers.target

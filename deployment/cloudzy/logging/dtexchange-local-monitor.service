@@ -1,0 +1,16 @@
+[Unit]
+Description=DT Exchange same-VPS security and logging monitor
+After=docker.service
+[Service]
+Type=oneshot
+UMask=0077
+ExecStart=/usr/bin/python3 /opt/dtexchange-local-logging/local_monitor.py /etc/dtexchange-logging/config.json
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/srv/dtexchange/logging-state /srv/dtexchange/status
+PrivateTmp=true
+Nice=15
+MemoryMax=256M
+CPUQuota=25%
+TimeoutStartSec=120

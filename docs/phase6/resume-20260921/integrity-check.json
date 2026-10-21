@@ -1,0 +1,19 @@
+{
+  "archiveFilesUnchanged": 437,
+  "differences": [],
+  "protectedFiles": 22,
+  "protectedChanged": [],
+  "requiredReports": {
+    "Phase6_API_Documentation.md": 5669,
+    "Phase6_Notification_Architecture.md": 3836,
+    "Phase6_Production_Hardening.md": 5768,
+    "Phase6_Test_Results.md": 4460,
+    "Phase6_Support_Architecture.md": 2937,
+    "Phase6_Implementation_Summary.md": 4412,
+    "Phase6_Referral_Architecture.md": 3041
+  },
+  "liveTestConfiguration": {
+    "PHASE6_POSTGRES_URL": false,
+    "PHASE6_REDIS_URL": false
+  }
+}

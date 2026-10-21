@@ -1,0 +1,13 @@
+import React from 'react';Object.assign(globalThis,{React});
+import {renderToStaticMarkup} from 'react-dom/server';
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs';
+import {ManualOperations} from './src/components/manual-operations';
+import Download from './src/app/download/page';
+async function main(){const out='../docs/manual/previews';mkdirSync(out,{recursive:true});const logo=readFileSync('public/brand/dt-monogram.svg','utf8');
+const deposit={id:'PREVIEW-DEPOSIT-042',user_id:'Preview user',submitted_amount:'100.000000',network_code:'tron-mainnet',tx_hash:'a'.repeat(64),receiver:'Preview receiving wallet — not a deposit address',sender:'Preview sender',status:'UNDER_REVIEW',note:'Preview fixture; no funds received.',proof_id:'preview-proof'};
+const payout={id:'PREVIEW-ORDER-042',user_id:'Preview user',net_inr_minor:'919877',amount_usdt:'100',rate_inr:'92.45',bank_name:'Example Bank',last_four:'9012',lifecycle:'PROCESSING'};
+const bank={payoutId:'PREVIEW-PAYOUT',bank:{holder:'Preview Account',accountNumber:'TEST ACCOUNT — NOT REAL',maskedAccount:'XXXXXX9012',ifsc:'TEST0001234',bank:'Example Bank'},amountInrMinor:'919877'};
+const screens=[['Admin_Deposit_Review',<ManualOperations module="manual-deposits" initialRows={[deposit]} initialSelection={deposit}/>],['Admin_Manual_Payout',<ManualOperations module="manual-payouts" initialRows={[payout]} initialSelection={payout}/>],['Upload_Payment_Receipt',<ManualOperations module="manual-payouts" initialRows={[payout]} initialSelection={payout} initialBank={bank}/>],['Android_Download_Website',await Download()]] as const;
+const css=readFileSync('src/styles/tokens.css','utf8')+'\n'+readFileSync('src/app/globals.css','utf8');
+for(const [name,view]of screens){let body=renderToStaticMarkup(view);body=body.replaceAll('<img src="/brand/dt-monogram.svg" width="88" height="88" alt="DT Exchange"/>',`<div style="width:88px">${logo}</div>`);writeFileSync(out+'/'+name+'.html','<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DT Exchange · '+name+'</title><style>'+css+' body{background:#f7f9fc;padding:24px}article{background:white} table{width:100%}td{padding:12px;max-width:280px;overflow-wrap:anywhere}input,select,textarea{padding:12px;border:1px solid #e3ebf3;border-radius:12px;width:100%}form{max-width:640px}section{margin-bottom:20px}details>summary{padding:16px}.card{margin-bottom:20px}</style><p style="padding:12px;background:#edf4ff;border-radius:12px">Rendered component preview. Synthetic data only; no funds moved. Controls are inactive in this static preview.</p>'+body+'</html>');}}
+main();

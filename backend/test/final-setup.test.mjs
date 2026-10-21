@@ -1,0 +1,11 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {assertProduction} from '../dist/config/production.js';
+import {setupReport,safePublicHttps} from '../dist/config/setup-report.js';
+test('Final APP_ENV production cannot bypass runtime gate',()=>assert.throws(()=>assertProduction({APP_ENV:'production',NODE_ENV:'development'}),/PRODUCTION_RUNTIME_REQUIRED/));
+test('Final conflicting deployment aliases fail closed',()=>assert.throws(()=>assertProduction({APP_ENV:'production',DEPLOYMENT_ENV:'staging',NODE_ENV:'production'}),/CONFLICTING_DEPLOYMENT_ENV/));
+test('Final invalid app environment is rejected',()=>assert.throws(()=>assertProduction({APP_ENV:'prod',NODE_ENV:'development'}),/INVALID_APP_ENV/));
+test('Final production alias preserves existing missing-secret checks',()=>assert.throws(()=>assertProduction({APP_ENV:'production',NODE_ENV:'production'}),/MISSING_PRODUCTION_DATABASE_URL/));
+test('Final offline checker reports missing configuration without values',()=>{const r=setupReport({PAYOUT_API_KEY:'placeholder-secret-never-echo'});assert.equal(r.PAYOUT_API_KEY,'invalid');assert.equal(r.DATABASE_URL,'missing');assert.ok(!JSON.stringify(r).includes('never-echo'));assert.ok(Object.values(r).every(x=>['configured','missing','invalid'].includes(x)));});
+test('Final HTTPS policy rejects development and credential URLs',()=>{for(const url of ['http://api.example.invalid','https://localhost','https://127.0.0.1','https://[::1]','https://api.local','https://u:p@api.example.invalid'])assert.equal(safePublicHttps(url),false);assert.equal(safePublicHttps('https://api.example.invalid/api/v1'),true);});
+test('Final configuration rejects wildcard CORS and mock provider names',()=>{const r=setupReport({CORS_ORIGINS:'https://*.example.invalid',PAYOUT_PROVIDER:'mock'});assert.equal(r.PAYOUT_PROVIDER,'invalid');assert.equal(r.CORS_ORIGINS,'invalid');});
+test('Final configuration catches invalid contract checksum and malformed URLs',()=>{const r=setupReport({TRON_USDT_CONTRACT:'T'+'a'.repeat(33),DATABASE_URL:'not-a-url'});assert.equal(r.TRON_USDT_CONTRACT,'invalid');assert.equal(r.DATABASE_URL,'invalid');});

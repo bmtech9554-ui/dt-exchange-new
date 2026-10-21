@@ -1,0 +1,15 @@
+{
+  "operatingModel": "MANUAL_ANDROID",
+  "blockchainApproval": "HUMAN_ATTESTATION_IMPLEMENTED_LIVE_NOT_VALIDATED",
+  "payoutRecording": "EXTERNAL_BANK_EVIDENCE_IMPLEMENTED_LIVE_NOT_VALIDATED",
+  "automaticBlockchain": "AUTOMATION_FUTURE",
+  "automaticPayout": "AUTOMATION_FUTURE",
+  "privateFinancialFiles": "POSTGRES_ENCRYPTED_IMPLEMENTED_LIVE_NOT_VALIDATED",
+  "otp": "MOCK_OR_DEV_ONLY_LIVE_ADAPTER_REQUIRED",
+  "kycAndBankVerification": "MOCK_ONLY_LIVE_ADAPTER_REQUIRED",
+  "pushEmailSms": "MOCK_ONLY_LIVE_ADAPTER_REQUIRED",
+  "supportStorage": "MOCK_ONLY_LIVE_ADAPTER_REQUIRED",
+  "custody": "BUSINESS_COLLECTION_WALLET_OWNERSHIP_NOT_VALIDATED",
+  "productionDeployed": false,
+  "realTransfersPerformed": false
+}

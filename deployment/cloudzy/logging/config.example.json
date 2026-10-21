@@ -1,0 +1,15 @@
+{
+  "enabled": false,
+  "region": "UNCONFIGURED",
+  "bucket": "UNCONFIGURED",
+  "accountId": "UNCONFIGURED",
+  "replicationAndAccountReviewed": false,
+  "recipientFile": "/etc/dtexchange-log-archive/recipient.txt",
+  "spool": "/var/lib/dtexchange-log-archive",
+  "minimumFreeBytes": 2147483648,
+  "maximumSpoolBytes": 10737418240,
+  "alertsEnabled": false,
+  "alertUrl": "",
+  "approvedAlertHost": "",
+  "alertTokenFile": "/etc/dtexchange-log-archive/alert-token"
+}

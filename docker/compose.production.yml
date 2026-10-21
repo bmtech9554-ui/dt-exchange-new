@@ -1,0 +1,50 @@
+# Reference topology: managed TLS PostgreSQL/Redis are external, never exposed here.
+# Secrets are supplied in a restricted runtime file, never committed. Production fails
+# closed until reviewed real provider adapters replace the current mock-only ports.
+x-backend: &backend
+  image: ${DT_BACKEND_IMAGE:?Set immutable backend image digest}
+  env_file: ${DT_RUNTIME_ENV_FILE:?Set restricted runtime environment file}
+  restart: unless-stopped
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  stop_grace_period: 45s
+  networks: [internal]
+services:
+  api:
+    <<: *backend
+    command: [api]
+    environment: {NODE_ENV: production, DEPLOYMENT_ENV: production, HOST: 0.0.0.0}
+  blockchain:
+    <<: *backend
+    command: [blockchain]
+    healthcheck: {disable: true} # Monitor persisted worker heartbeat externally.
+  payouts:
+    <<: *backend
+    command: [payouts]
+    healthcheck: {disable: true}
+  engagement:
+    <<: *backend
+    command: [engagement]
+    healthcheck: {disable: true}
+  admin:
+    image: ${DT_ADMIN_IMAGE:?Set immutable admin image digest}
+    environment:
+      DT_BACKEND_URL: ${DT_BACKEND_URL:?HTTPS API URL required}
+    restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    networks: [internal]
+  proxy:
+    image: nginx:1.28-alpine
+    ports: ['80:8080', '443:8443']
+    volumes:
+      - ./nginx/production.conf:/etc/nginx/nginx.conf:ro
+      - ${DT_TLS_DIRECTORY:?Set externally provisioned TLS directory}:/run/tls:ro
+    restart: unless-stopped
+    networks: [internal]
+networks:
+  internal: {} # Private deployment network; egress restricted by host/cloud firewall.

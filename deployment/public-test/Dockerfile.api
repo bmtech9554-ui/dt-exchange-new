@@ -1,0 +1,9 @@
+FROM sha256:aa7a93e9ddee5c5736a0c2fe282d8c8d27628c38042fcbb073c216b6b4fdef5d
+COPY --chown=node:node backend/dist /app/backend/dist
+COPY --chown=node:node backend/migrations /app/backend/migrations
+COPY --chown=node:node backend/seeds /app/backend/seeds
+COPY --chown=node:node backend/scripts /app/backend/scripts
+COPY --chown=node:node deployment/public-test/runtime.mjs /app/public-test-runtime.mjs
+USER node
+WORKDIR /app
+ENTRYPOINT ["node","/app/public-test-runtime.mjs"]

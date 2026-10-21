@@ -1,0 +1,8 @@
+[Unit]
+Description=Isolated public test resource and health guard
+After=docker.service
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /srv/dtexchange-public-test/operations.py monitor
+UMask=0077
+TimeoutStartSec=90

@@ -1,0 +1,10 @@
+[Unit]
+Description=Encrypted backup of isolated DT Exchange public-test data only
+After=docker.service
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /srv/dtexchange-public-test/operations.py backup
+UMask=0077
+Nice=10
+MemoryMax=256M
+TimeoutStartSec=900

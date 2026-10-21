@@ -1,0 +1,65 @@
+groups:
+  - name: dt-exchange
+    rules:
+      - alert: DTApiUnavailable
+        expr: probe_success{job="dt-api-ready"} == 0
+        for: 2m
+        labels: {severity: critical}
+        annotations: {summary: 'DT API readiness failed; inspect dependency status'}
+      - alert: DTDatabaseUnavailable
+        expr: pg_up == 0
+        for: 1m
+        labels: {severity: critical}
+      - alert: DTRedisUnavailable
+        expr: redis_up == 0
+        for: 1m
+        labels: {severity: critical}
+      - alert: DTLedgerMismatch
+        expr: dt_ledger_mismatches > 0
+        for: 0m
+        labels: {severity: critical}
+        annotations: {summary: 'Pause new financial activity and investigate ledger integrity'}
+      - alert: DTReconciliationMismatch
+        expr: dt_reconciliation_mismatches > 0
+        for: 5m
+        labels: {severity: critical}
+      - alert: DTWorkerStopped
+        expr: dt_worker_stale > 0
+        for: 2m
+        labels: {severity: critical}
+      - alert: DTQueueBacklog
+        expr: bullmq_job_count{state="waiting"} > 1000
+        for: 10m
+        labels: {severity: warning}
+      - alert: DTBlockchainStalled
+        expr: dt_blockchain_scan_lag_seconds > 120
+        for: 5m
+        labels: {severity: critical}
+      - alert: DTPayoutDelay
+        expr: dt_payout_oldest_seconds > 900
+        for: 5m
+        labels: {severity: warning}
+      - alert: DTPayoutFailures
+        expr: dt_payout_failed > 5
+        for: 5m
+        labels: {severity: critical}
+      - alert: DTProviderUnavailable
+        expr: dt_provider_circuit_open > 0
+        for: 2m
+        labels: {severity: warning}
+      - alert: DTApiErrors
+        expr: dt_api_error_ratio > 0.05
+        for: 5m
+        labels: {severity: warning}
+      - alert: DTNotificationFailures
+        expr: dt_notification_failed > 20
+        for: 10m
+        labels: {severity: warning}
+      - alert: DTStorageLow
+        expr: node_filesystem_avail_bytes / node_filesystem_size_bytes < 0.15
+        for: 10m
+        labels: {severity: critical}
+      - alert: DTMetricsMissing
+        expr: up{job="dt-metrics"} == 0
+        for: 2m
+        labels: {severity: warning}

@@ -1,0 +1,8 @@
+[Unit]
+Description=DT Exchange local log capture schedule
+[Timer]
+OnBootSec=60s
+OnUnitInactiveSec=60s
+AccuracySec=5s
+[Install]
+WantedBy=timers.target

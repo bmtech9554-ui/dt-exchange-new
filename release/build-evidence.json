@@ -1,0 +1,25 @@
+{
+  "version": "1.0.0-rc.1",
+  "artifacts": [
+    {
+      "path": "mobile/build/web/main.dart.js",
+      "bytes": 3477618,
+      "sha256": "074ac33e6ff03b5942b1044f6d0fdcdb374b2c9ebd50b05acb2e9fae70709cca",
+      "scope": "Local build evidence; build caches excluded from source ZIP"
+    },
+    {
+      "path": "admin/.next/BUILD_ID",
+      "bytes": 21,
+      "sha256": "7ac8a584ba507786c5f9f3218d3dce69d17ac531dc5cd866a226b0c6652af899",
+      "scope": "Local build evidence; build caches excluded from source ZIP"
+    },
+    {
+      "path": "backend/dist/main.js",
+      "bytes": 2923,
+      "sha256": "351ff7a828988fb8c2c7e581c4ff15b815677359439d1ba4d0773d08551b5cf0",
+      "scope": "Local build evidence; build caches excluded from source ZIP"
+    }
+  ],
+  "android": "NOT_VALIDATED",
+  "ios": "NOT_VALIDATED"
+}

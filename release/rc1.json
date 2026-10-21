@@ -1,0 +1,17 @@
+{
+  "product": "DT Exchange RC1",
+  "version": "1.0.0-rc.1",
+  "mobileVersion": "1.0.0",
+  "mobileBuild": 8001,
+  "backendVersion": "1.0.0-rc.1",
+  "adminVersion": "1.0.0-rc.1",
+  "migration": "007_operational_readiness.sql",
+  "certification": "BLOCKED_FOR_PRODUCTION",
+  "financialMode": "MOCK",
+  "productionDeployed": false,
+  "baseline": {
+    "backend": 126,
+    "flutter": 255,
+    "admin": 12
+  }
+}

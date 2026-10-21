@@ -1,0 +1,93 @@
+{
+  "status": "BLOCKED_FOR_PRODUCTION",
+  "baseline": {
+    "backend": 141,
+    "flutter": 260,
+    "admin": 12
+  },
+  "blockers": [
+    {
+      "area": "blockchain",
+      "status": "NEEDS_CREDENTIALS"
+    },
+    {
+      "area": "payout",
+      "status": "NEEDS_CREDENTIALS"
+    },
+    {
+      "area": "kyc_bank",
+      "status": "NEEDS_CREDENTIALS"
+    },
+    {
+      "area": "postgres",
+      "status": "NEEDS_INFRASTRUCTURE"
+    },
+    {
+      "area": "redis",
+      "status": "NEEDS_INFRASTRUCTURE"
+    },
+    {
+      "area": "android",
+      "status": "NEEDS_MANUAL_ACTION"
+    },
+    {
+      "area": "ios",
+      "status": "NEEDS_MANUAL_ACTION"
+    },
+    {
+      "area": "staging",
+      "status": "NEEDS_INFRASTRUCTURE"
+    },
+    {
+      "area": "domains_tls",
+      "status": "NEEDS_INFRASTRUCTURE"
+    },
+    {
+      "area": "browser_admin",
+      "status": "NEEDS_INFRASTRUCTURE"
+    },
+    {
+      "area": "backup_restore",
+      "status": "NEEDS_INFRASTRUCTURE"
+    },
+    {
+      "area": "monitoring",
+      "status": "NEEDS_INFRASTRUCTURE"
+    },
+    {
+      "area": "secrets",
+      "status": "NEEDS_CREDENTIALS"
+    },
+    {
+      "area": "stores",
+      "status": "NEEDS_MANUAL_ACTION"
+    },
+    {
+      "area": "organizational_approval",
+      "status": "NEEDS_MANUAL_ACTION"
+    },
+    {
+      "area": "vendor_adapter_registration",
+      "status": "BLOCKED"
+    }
+  ],
+  "localChecks": {
+    "backend": {
+      "status": "PASS",
+      "count": 149
+    },
+    "flutter": {
+      "status": "PASS",
+      "count": 260
+    },
+    "admin": {
+      "status": "PASS",
+      "count": 12
+    },
+    "static_builds": {
+      "status": "PASS"
+    },
+    "liveTransfers": false,
+    "productionDeployed": false
+  }
+}

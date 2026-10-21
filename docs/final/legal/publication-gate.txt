@@ -1,0 +1,22 @@
+LEGAL PUBLICATION GATE — CLOSED
+
+Confirmed public details: DT Exchange; https://dtexchange.app;
+temporary contact dtexchangeservice@gmail.com.
+Unconfirmed: legal operator and official legal/privacy contact.
+
+These drafts are local review documents. They are not loaded into production
+settings, copied into public assets or marked PUBLISHED. Public app/website
+render only a backend document whose status is explicitly PUBLISHED.
+
+Before publication ask the user to confirm the final legal operator name and
+official contact email. Also complete the operator's applicable-law review,
+address/grievance details, retention schedule, provider/processing locations,
+eligibility and effective date. Do not treat a brand as a legal company identity.
+
+Primary references checked 8 October 2026:
+https://www.meity.gov.in/documents/act-and-policies/digital-personal-data-protection-rules-2025-gDOxUjMtQWa?pageTitle=Digit
+https://www.wipo.int/wipolex/en/text/494931
+The latter reproduces the official 2011 privacy/security rules. Confirm phased
+commencement and applicability at publication; the drafts make no blanket legal
+compliance assertion. Facts about data processing come from this codebase and
+must be rechecked against the final deployed services before publication.

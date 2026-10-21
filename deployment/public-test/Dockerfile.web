@@ -1,0 +1,5 @@
+FROM sha256:bf374a367c7a411320638bdfd51dbbf9fd7c49251e7d73aeeb2fea7055ae19b7
+COPY --chown=node:node web /app
+USER node
+ENV PORT=3000 HOSTNAME=0.0.0.0 DT_PUBLIC_TEST_METADATA_FILE=/test-release/release.json
+ENTRYPOINT ["node","/app/admin/server.js"]

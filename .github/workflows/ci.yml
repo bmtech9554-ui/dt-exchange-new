@@ -12,8 +12,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24.19.0', cache: npm}
-      - name: Reconcile npm lockfile with package manifests
-        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
       - run: npm ci --ignore-scripts
       - run: npm run tokens:check
       - run: npm run typecheck
@@ -48,8 +46,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24.19.0', cache: npm}
-      - name: Reconcile npm lockfile with package manifests
-        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
       - run: npm ci --ignore-scripts
       - run: npm run build --workspace @dt/backend
       - run: node --test backend/test/phase6.test.mjs backend/test/phase7.test.mjs backend/test/phase8-e2e.test.mjs backend/test/manual.test.mjs backend/test/redis-integration.mjs backend/test/phase8-redis-recovery.mjs

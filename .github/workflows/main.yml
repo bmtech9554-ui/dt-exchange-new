@@ -1,1 +1,33 @@
-/Users/shahilfaizi/.codex/visualizations/2026/10/21/01a15fb9-3616-7532-a6d3-9131b9d98cac/flutter-ci-line-ending-fix.patch
+name: DT Exchange Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  mobile:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: |
+          flutter build apk --release --build-number=8018 --dart-define=APP_VERSION_CODE=8018
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: dt-exchange-apk
+          path: mobile/build/app/outputs/flutter-apk/app-release.apk

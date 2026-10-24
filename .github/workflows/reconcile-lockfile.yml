@@ -1,0 +1,39 @@
+name: Reconcile dependency lockfile
+on:
+  push:
+    branches:
+      - fix/reconcile-nestjs-lockfile-20261025
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Regenerate npm lockfile from manifests
+        run: npm install --package-lock-only --ignore-scripts --no-audit
+      - name: Validate install and security
+        run: |
+          npm ci
+          npm audit --audit-level=high
+          npm run typecheck
+          npm test
+          npm run test --workspace @dt/admin
+          npm run build
+      - name: Commit verified lockfile
+        run: |
+          if git diff --quiet -- package-lock.json; then
+            echo "Lockfile already matches manifests"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          git commit -m "fix(deps): reconcile NestJS lockfile and patched multer"
+          git push

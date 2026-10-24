@@ -16,6 +16,7 @@ jobs:
           cache: npm
       - name: Update vulnerable dependencies without forced majors
         run: |
+          npm install --package-lock-only --ignore-scripts
           npm ci --ignore-scripts
           npm audit fix --ignore-scripts
           npm ci --ignore-scripts

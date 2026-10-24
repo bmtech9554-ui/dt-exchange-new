@@ -30,7 +30,7 @@
     "@electric-sql/pglite": "0.5.8",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^24.3.1",
+    "@types/node": "^26.6.5",
     "@types/pg": "^8.15.5",
     "tsx": "^4.20.5",
     "typescript": "~5.9.2"

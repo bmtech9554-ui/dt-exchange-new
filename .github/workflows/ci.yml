@@ -2,8 +2,8 @@ name: DT Exchange validation
 on: [push, pull_request, workflow_dispatch]
 permissions: {contents: read}
 concurrency:
-  group: dt-validation-${{ github.ref }}
-  cancel-in-progress: true
+  group: dt-validation-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
 jobs:
   application:
     runs-on: ubuntu-latest

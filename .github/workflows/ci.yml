@@ -66,7 +66,8 @@ jobs:
       - run: flutter test
         working-directory: mobile
       - run: |
-          build_number="$(awk '/^version:/ {split($2, parts, "+"); print parts[2]}' pubspec.yaml)"
+          build_number="$(awk '/^version:/ {sub(/\r$/, ""); split($2, parts, "+"); print parts[2]; exit}' pubspec.yaml)"
+          [[ "$build_number" =~ ^[0-9]+$ ]] || { echo "Invalid build number in pubspec.yaml"; exit 1; }
           flutter build web --release --no-web-resources-cdn --dart-define=APP_VERSION_CODE="$build_number" --dart-define=API_BASE_URL=https://api.example.invalid/api/v1
         working-directory: mobile
       - uses: actions/upload-artifact@v4

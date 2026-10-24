@@ -13,9 +13,9 @@
     "worker:engagement": "node --env-file-if-exists=../.env dist/engagement-worker.js"
   },
   "dependencies": {
-    "@nestjs/common": "12.0.3",
-    "@nestjs/core": "12.0.3",
-    "@nestjs/platform-express": "12.0.3",
+    "@nestjs/common": "12.2.0",
+    "@nestjs/core": "12.2.0",
+    "@nestjs/platform-express": "12.2.0",
     "bullmq": "^5.81.5",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",

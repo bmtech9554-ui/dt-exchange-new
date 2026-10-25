@@ -1,0 +1,47 @@
+name: Prepare audited dependency fixes
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.19.0'
+          cache: npm
+      - name: Update vulnerable dependencies without forced majors
+        run: |
+          npm install --package-lock-only --ignore-scripts
+          npm ci --ignore-scripts
+          npm audit fix --ignore-scripts
+          npm ci --ignore-scripts
+          npm audit --audit-level=high
+      - name: Regression checks
+        run: |
+          npm run tokens:check
+          npm run typecheck
+          npm test
+          npm run test --workspace @dt/admin
+          npm run build
+          node scripts/security-check.mjs
+          python3 scripts/release-secret-scan.py .
+      - name: Open dependency-only pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- package.json package-lock.json backend/package.json admin/package.json; then
+            echo "No dependency changes needed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "automation/audit-fix-${{ github.run_id }}"
+          git add package.json package-lock.json backend/package.json admin/package.json
+          git commit -m "fix: resolve high and critical npm audit findings"
+          git push origin HEAD
+          gh pr create --base "chore/security-dependency-updates" --head "automation/audit-fix-${{ github.run_id }}" --title "fix: remediate audited npm dependencies" --body "Automated non-force npm audit remediation. npm ci, audit, typecheck, backend/admin tests, build, security check, and secret scan passed. No application feature code changed."

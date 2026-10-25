@@ -93,7 +93,7 @@ export class BanksService {
           [uid],
         )
       ).rows[0]!.n;
-      if (count >= 5)
+      if (count >= 50)
         throw new BadRequestException("Maximum bank accounts reached");
       const synthetic = dto.ifsc==='TEST0000000' && dto.accountNumber==='000000000000' && dto.bankName==='TEST SYNTHETIC NON-PAYOUT' && dto.accountHolderName==='TEST SYNTHETIC' && await syntheticValidation(tx,uid);
       if (privateBetaEnabled() && !synthetic) throw new BadRequestException('Test bank fixture unavailable');

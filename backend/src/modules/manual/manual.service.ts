@@ -308,7 +308,7 @@ export class ManualService {
   async submit(uid: string, body: unknown, key?: string) {
     requireManual("deposit");
     const isolatedDemo = process.env.PUBLIC_TEST_MODE === 'true';
-    if (isolatedDemo) (await import('../../public-test/isolation')).assertPublicTestIsolation();
+    if (isolatedDemo) (await import('../../public-test/isolation.js')).assertPublicTestIsolation();
     if (!isolatedDemo && body && typeof body === 'object' && !('proofId' in body))
       throw new BadRequestException('Deposit proof required');
     const b = input(

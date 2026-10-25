@@ -6,8 +6,8 @@ import { PublicTestErrorFilter } from './error-filter';
 
 export async function createPublicTestApp() {
   assertPublicTestIsolation();
-  const {createApp}=await import('../main');
-  const {PublicTestModule}=await import('./public-test.module');
+  const {createApp}=await import('../main.js');
+  const {PublicTestModule}=await import('./public-test.module.js');
   const app=await createApp(PublicTestModule);
   app.useGlobalFilters(new PublicTestErrorFilter());
   const db=app.get(DatabaseService);

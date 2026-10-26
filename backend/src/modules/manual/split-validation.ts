@@ -8,7 +8,7 @@ export function validateManualSplitPlan(
   legs: ManualSplitLeg[],
   maxAccounts = 50,
 ): ManualSplitLeg[] {
-  if (!/^[1-9]\\d*$/.test(expectedInrMinor)) throw new Error('Invalid withdrawal total');
+  if (!/^[1-9]\d*$/.test(expectedInrMinor)) throw new Error('Invalid withdrawal total');
   if (!Array.isArray(legs) || legs.length < 1 || legs.length > maxAccounts)
     throw new Error('Invalid number of payout accounts');
   const seen = new Set<string>();
@@ -19,7 +19,7 @@ export function validateManualSplitPlan(
       throw new Error('Invalid bank account ID');
     if (seen.has(leg.bankAccountId.toLowerCase())) throw new Error('Duplicate payout account');
     seen.add(leg.bankAccountId.toLowerCase());
-    if (typeof leg.amountInrMinor !== 'string' || !/^[1-9]\\d*$/.test(leg.amountInrMinor))
+    if (typeof leg.amountInrMinor !== 'string' || !/^[1-9]\d*$/.test(leg.amountInrMinor))
       throw new Error('Invalid payout amount');
     total += BigInt(leg.amountInrMinor);
   }

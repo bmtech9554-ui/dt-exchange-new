@@ -98,6 +98,7 @@ class ManualAdminController {
   ) {
     return this.s.review(r.admin.id, id, b);
   }
+  @Get("users/:userId/bank-accounts") bankAccounts(@Req() r:any,@Param("userId",ParseUUIDPipe) userId:string){return this.s.adminBankAccounts(r.admin.id,userId);}
   @Get("payouts") payouts(@Req() r: any, @Query("page") p = "1") {
     return this.s.payoutList(r.admin.id, page(p));
   }

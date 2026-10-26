@@ -643,6 +643,27 @@ export class ManualService {
       return { status: to };
     });
   }
+  async adminBankAccounts(admin: string, userId: string) {
+    await this.permission(admin, "PAYOUT_VIEW");
+    const result = await this.db.query(
+      "SELECT b.id,b.user_id,b.bank_name,b.ifsc,b.branch,b.last_four,b.account_number_ciphertext,b.holder_name_ciphertext,b.verification_status,b.is_default,b.self_declared,b.created_at,u.public_user_id FROM bank_accounts b JOIN users u ON u.id=b.user_id WHERE b.user_id=$1 AND b.disabled_at IS NULL ORDER BY b.created_at DESC LIMIT 50",
+      [userId],
+    );
+    return result.rows.map((b) => ({
+      id: b.id,
+      userId: b.user_id,
+      publicUserId: String(b.public_user_id),
+      bankName: b.bank_name,
+      ifsc: b.ifsc,
+      branch: b.branch,
+      accountNumber: this.crypto.decrypt(b.account_number_ciphertext, b.id + ":number"),
+      accountHolderName: this.crypto.decrypt(b.holder_name_ciphertext, b.id + ":holder"),
+      verificationStatus: b.verification_status,
+      selfDeclared: b.self_declared,
+      isDefault: b.is_default,
+      createdAt: b.created_at,
+    }));
+  }
   async payoutList(admin: string, page = 1, id:string|null=null) {
     await this.permission(admin, "PAYOUT_VIEW");
     return (

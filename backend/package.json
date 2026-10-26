@@ -18,7 +18,7 @@
     "@nestjs/platform-express": "12.2.0",
     "bullmq": "^6.4.0",
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.2",
+    "class-validator": "^0.15.1",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.23.1",
